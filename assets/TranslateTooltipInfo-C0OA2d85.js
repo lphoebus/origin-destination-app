@@ -1,0 +1,1 @@
+import{iK as o,b8 as e,ba as s,bb as a}from"./index-Bkom2Sdc.js";import{r}from"./rotate-n1-rbgp3.js";let t=class extends r{constructor(i){super(i),this.type="translate",this.distance=o}clear(){this.distance=o}};e([s()],t.prototype,"type",void 0),e([s()],t.prototype,"distance",void 0),t=e([a("esri.views.interactive.tooltip.infos.TranslateTooltipInfo")],t);export{t as i};

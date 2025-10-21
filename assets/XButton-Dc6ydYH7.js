@@ -1,0 +1,3 @@
+import{j as l,s as r,E as x,n as d,k as p,x as f}from"./index-Bkom2Sdc.js";/*! All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://github.com/Esri/calcite-design-system/blob/dev/LICENSE.md for details.
+v3.3.3 */const o={button:"x-button",buttonRound:"x-button--round"},S=({disabled:n,focusable:a,key:u,label:e,onClick:s,ref:c,round:b=!0,scale:t,title:i})=>l(u,f`<button .ariaLabel=${e} class=${r({[($=>`x-button--${$}`)(t)]:!0,[o.button]:!0,[o.buttonRound]:b})} .disabled=${n} @click=${s} .tabIndex=${a?0:-1} title=${i??x} type=button ${d(c)}><calcite-icon icon=x .scale=${p(t)}></calcite-icon></button>`);export{o as C,S as X};

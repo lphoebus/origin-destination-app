@@ -1,0 +1,1 @@
+import{r as u}from"./index-Bkom2Sdc.js";function f(o,l,{signal:c,edges:a=["leading","trailing"]}={}){let n=null;const e=u(o,l,{signal:c,edges:a}),t=function(...i){n==null?n=Date.now():Date.now()-n>=l&&(n=Date.now(),e.cancel()),e(...i)};return t.cancel=e.cancel,t.flush=e.flush,t}export{f as t};

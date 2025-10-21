@@ -1,0 +1,3 @@
+import{ar as u}from"./index-Bkom2Sdc.js";/*! All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://github.com/Esri/calcite-design-system/blob/dev/LICENSE.md for details.
+v3.3.3 */let n=0,d="";const f=()=>{function t(){n++,n===1&&(d=document.documentElement.style.overflow,document.documentElement.style.overflow="hidden")}function o(){n--,n===0&&(document.documentElement.style.overflow=d)}return u((e,l)=>{l.onConnected(()=>{e.opened&&e.preventDocumentScroll&&t()}),l.onUpdate(r=>{e.hasUpdated&&(r.has("opened")&&e.preventDocumentScroll?e.opened?t():o():r.has("preventDocumentScroll")&&e.opened&&(e.preventDocumentScroll?t():o()))}),l.onDisconnected(()=>{e.opened&&e.preventDocumentScroll&&o()})})};export{f as u};
