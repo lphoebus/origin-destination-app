@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/globe-16.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migration App</title>
+</head>
+
+<body>
+  <calcite-shell content-behind>
+    <calcite-navigation slot="header">
+      <calcite-navigation-logo slot="logo" icon="map" heading="Migration Flow"
+        description="State to State Migration Patterns"></calcite-navigation-logo>
+    </calcite-navigation>
+
+    <!-- Left panel for map widgets (optional, can be removed if not needed) -->
+    <calcite-shell-panel slot="panel-start" display-mode="float-content">
+      <calcite-action-bar slot="action-bar">
+        <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
+        <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
+        <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
+        <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
+        <calcite-action data-action-id="information" icon="information" text="Information" id="info-action"></calcite-action>
+      </calcite-action-bar>
+      <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" closed closable>
+        <arcgis-layer-list reference-element="mainMap" visibility-appearance="default"></arcgis-layer-list>
+      </calcite-panel>
+      <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" closed closable>
+        <arcgis-basemap-gallery reference-element="mainMap"></arcgis-basemap-gallery>
+      </calcite-panel>
+      <calcite-panel heading="Legend" height-scale="l" data-panel-id="legend" closed closable>
+        <arcgis-legend legend-style="classic" reference-element="mainMap"></arcgis-legend>
+      </calcite-panel>
+      <calcite-panel heading="Bookmarks" height-scale="l" data-panel-id="bookmarks" closed closable>
+        <arcgis-bookmarks editing-enabled="false" reference-element="mainMap"></arcgis-bookmarks>
+      </calcite-panel>
+    </calcite-shell-panel>
+
+    <!-- Right panel: Migration controls and info (always open) -->
+    <calcite-shell-panel slot="panel-end" display-mode="float-content">
+      <calcite-panel heading="Migration Options & Info" open>
+        <calcite-block heading="Select Geography Level" open>
+          <calcite-segmented-control id="geo-level-segmented">
+            <calcite-segmented-control-item value="state" checked>State</calcite-segmented-control-item>
+            <calcite-segmented-control-item value="county">County</calcite-segmented-control-item>
+          </calcite-segmented-control>
+        </calcite-block>
+        <calcite-block heading="Filter" description="Drag slider to filter migration flowlines" collapsible expanded>
+          <label>
+            <calcite-slider id="migration-slider" min="0" max="10000" step="1000" ticks="1000" value="2500" label-handles></calcite-slider>
+          </label>
+          <div style="margin-top: 1em;">
+            <!-- <calcite-button id="draw-lines-btn" icon-start="pencil">Draw Lines</calcite-button> -->
+            <calcite-button id="clear-lines-btn" appearance="outline" icon-start="erase">Clear Lines</calcite-button>
+            <calcite-button id="reset-btn" appearance="outline" icon-start="reset">Reset</calcite-button>
+          </div>
+        </calcite-block>
+        <calcite-block open heading="Direction" description="Select flow direction">
+          <calcite-segmented-control id="flow-segmented">
+            <calcite-segmented-control-item icon-start="arrow-up-left" value="outflow" checked>Outflow</calcite-segmented-control-item>
+            <calcite-segmented-control-item icon-start="arrow-down-right" value="inflow">Inflow</calcite-segmented-control-item>
+          </calcite-segmented-control>
+        </calcite-block>
+        <calcite-block id="info-block" open heading="State Information" description="Select a State to render pop-up">
+          <arcgis-feature id="feature-info" reference-element="#mainMap" content hide-action-bar initial-display-mode="feature"></arcgis-feature>
+          <div id="migration-summary" style="margin-top: 1em; font-size: 0.9em;"></div>
+        </calcite-block>
+      </calcite-panel>
+    </calcite-shell-panel>
+
+    <!-- Main map and views -->
+    <arcgis-map id="mainMap" item-id="801450ea3aa3485985a5896aab4bd214"></arcgis-map>
+    <div id="alaskaViewDiv"></div>
+    <div id="hawaiiViewDiv"></div>
+
+    <!-- About dialog -->
+    <calcite-dialog id="about-dialog" kind="info" width="m">
+      <div slot="header">About This App</div>
+      <div>
+        <p>
+          <b>Migration Flow App</b><br>
+          This application visualizes migration flows states. Interact with data to discover patterns between inflow and outflow of movement nationwide.<br><br>
+        </p>
+      </div>
+      <calcite-button slot="footer-end" id="about-dialog-close">Close</calcite-button>
+    </calcite-dialog>
+  </calcite-shell>
+  <calcite-loader label="loading" text="Loading..."></calcite-loader>
+  <script type="module" src="/src/main.js"></script>
+  
+  <div id="line-hover-popup"></div>
+
+</body>
+
+</html>
