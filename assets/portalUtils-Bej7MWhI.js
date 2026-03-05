@@ -1,1 +1,0 @@
-import{bz as u}from"./index-CZb3KKw5.js";function l(r,n){return r===null?n:new u({url:r.field("url")})}export{l};

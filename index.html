@@ -5,16 +5,16 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/globe-16.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Migration App</title>
-  <script type="module" crossorigin src="/origin-destination-app/assets/index-CZb3KKw5.js"></script>
+  <title>Origin-Destination App</title>
+  <script type="module" crossorigin src="/origin-destination-app/assets/index-CijYe-e2.js"></script>
   <link rel="stylesheet" crossorigin href="/origin-destination-app/assets/index-qgr3aZQ6.css">
 </head>
 
 <body>
   <calcite-shell content-behind>
     <calcite-navigation slot="header">
-      <calcite-navigation-logo slot="logo" icon="map" heading="Migration Flow"
-        description="State to State Migration Patterns"></calcite-navigation-logo>
+      <calcite-navigation-logo slot="logo" icon="map" heading="Origin-Destination App"
+        description="Explore Migration Patterns"></calcite-navigation-logo>
     </calcite-navigation>
 
     <!-- Left panel for map widgets (optional, can be removed if not needed) -->
@@ -42,8 +42,8 @@
 
     <!-- Right panel: Migration controls and info (always open) -->
     <calcite-shell-panel slot="panel-end" display-mode="float-content">
-      <calcite-panel heading="Migration Options & Info" open>
-        <calcite-block heading="Select Geography Level" open>
+      <calcite-panel heading="Settings & Info" expanded>
+        <calcite-block heading="Select Geography Level" expanded>
           <calcite-segmented-control id="geo-level-segmented">
             <calcite-segmented-control-item value="state" checked>State</calcite-segmented-control-item>
             <calcite-segmented-control-item value="county">County</calcite-segmented-control-item>
@@ -59,13 +59,14 @@
             <calcite-button id="reset-btn" appearance="outline" icon-start="reset">Reset</calcite-button>
           </div>
         </calcite-block>
-        <calcite-block open heading="Direction" description="Select flow direction">
+        <calcite-block expanded heading="Direction" description="Select flow direction">
           <calcite-segmented-control id="flow-segmented">
             <calcite-segmented-control-item icon-start="arrow-up-left" value="outflow" checked>Outflow</calcite-segmented-control-item>
             <calcite-segmented-control-item icon-start="arrow-down-right" value="inflow">Inflow</calcite-segmented-control-item>
+            <!-- <calcite-segmented-control-item icon-start="compare" value="net">Net</calcite-segmented-control-item> -->
           </calcite-segmented-control>
         </calcite-block>
-        <calcite-block id="info-block" open heading="State Information" description="Select a State to render pop-up">
+        <calcite-block id="info-block" expanded heading="State Information" description="Select a State to render pop-up">
           <arcgis-feature id="feature-info" reference-element="#mainMap" content hide-action-bar initial-display-mode="feature"></arcgis-feature>
           <div id="migration-summary" style="margin-top: 1em; font-size: 0.9em;"></div>
         </calcite-block>
@@ -82,8 +83,10 @@
       <div slot="header">About This App</div>
       <div>
         <p>
-          <b>Migration Flow App</b><br>
-          This application visualizes migration flows states. Interact with data to discover patterns between inflow and outflow of movement nationwide.<br><br>
+          <b>Origin-Destination App</b><br><br>
+          This application is currently in development to help visualize flow from origin to destination and vice versa. 
+          The current example focuses on migration between states and counties, allowing you to interact with the data and explore patterns of inflow and outflow across the country.<br><br>
+          Data Source: <a href="https://www.irs.gov/statistics/soi-tax-stats-migration-data" target="_blank" rel="noopener">IRS Migration Data 2021–2022</a><br><br>
         </p>
       </div>
       <calcite-button slot="footer-end" id="about-dialog-close">Close</calcite-button>
