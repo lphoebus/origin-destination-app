@@ -1,5 +1,5 @@
 {
-  "name": "origin-destination-app-new",
+  "name": "origin-destination-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,5 +20,5 @@
     "@arcgis/map-components": "^4.34.1",
     "@esri/calcite-components": "^3.3.3"
   },
-  "homepage": "https://lphoebus.github.io/origin-destination-app-new/"
+  "homepage": "https://lphoebus.github.io/origin-destination-app/"
 }
