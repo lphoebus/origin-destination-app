@@ -1,1 +1,0 @@
-import{f8 as i,f9 as l,fa as f,fb as o}from"./index-CijYe-e2.js";function u({level:e,class:n,...t},s){const a=r(e);return i(`h${a}`,{...t,"aria-level":String(a),class:l(f.heading,n),role:"heading"},s)}function r(e){return o(Math.ceil(e),1,6)}function h(e,n=1){return r(e+n)}export{h as l,u as s};
