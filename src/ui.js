@@ -106,9 +106,15 @@ export function setupResetSliderBtn() {
 export function setupAboutDialog() {
   const infoAction = document.getElementById("info-action");
   const aboutDialog = document.getElementById("about-dialog");
+  const closeBtn = document.getElementById("about-dialog-close");
   if (infoAction && aboutDialog) {
     infoAction.addEventListener("click", () => {
       aboutDialog.open = true;
+    });
+  }
+  if (closeBtn && aboutDialog) {
+    closeBtn.addEventListener("click", () => {
+      aboutDialog.open = false;
     });
   }
 }
