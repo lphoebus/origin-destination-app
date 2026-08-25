@@ -1,0 +1,24 @@
+import {
+  t
+} from "./chunk-Z2VNECWP.js";
+import {
+  i
+} from "./chunk-LI44BB66.js";
+import {
+  dt
+} from "./chunk-HIGSJTLY.js";
+
+// node_modules/@arcgis/core/views/interactive/snapping/candidates/IntersectionSnappingCandidate.js
+var n = class extends t {
+  constructor(i2, s, n2, r) {
+    super(i2, new dt(i2), r, 3), this.first = s, this.second = n2;
+  }
+  get hints() {
+    return this.first.targetPoint = this.targetPoint, this.second.targetPoint = this.targetPoint, [...this.first.hints, ...this.second.hints, new i(this.targetPoint, this.isDraped, this.domain)];
+  }
+};
+
+export {
+  n
+};
+//# sourceMappingURL=chunk-S6MNQFAI.js.map

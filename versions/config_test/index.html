@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./globe-16.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Origin-Destination App</title>
+</head>
+
+<body>
+  <calcite-shell content-behind>
+    <calcite-navigation slot="header">
+      <calcite-navigation-logo slot="logo" icon="map" heading="Origin-Destination App"
+        description="Configuration Testing"></calcite-navigation-logo>
+    </calcite-navigation>
+
+    <calcite-shell-panel id="left-panel" slot="panel-start" display-mode="dock" width="m" collapsed>
+      <calcite-action-bar slot="action-bar" collapsed>
+        <calcite-action id="toggle-layers-action" icon="layers" text="Layers"></calcite-action>
+      </calcite-action-bar>
+      <calcite-panel id="left-layers-panel" heading="Map Layers" hidden>
+        <arcgis-layer-list reference-element="mainMap"></arcgis-layer-list>
+      </calcite-panel>
+    </calcite-shell-panel>
+
+    <calcite-shell-panel slot="panel-end" display-mode="float-content">
+      <calcite-panel heading="Configuration" expanded>
+
+        <!-- *** Coordinate Input Mode *** -->
+        <calcite-block heading="Coordinate Input Mode" expanded collapsible>
+          <calcite-action slot="control" id="coord-mode-info" icon="information" text="About coordinate modes" scale="s"></calcite-action>
+          <calcite-tooltip reference-element="coord-mode-info">
+            Choose how your origin and destination coordinates are stored in your data
+          </calcite-tooltip>
+          <calcite-radio-button-group id="coord-mode" layout="vertical">
+            <calcite-label layout="inline">
+              <calcite-radio-button value="xy" checked></calcite-radio-button>
+              Separate Origin &amp; Destination X/Y Fields
+            </calcite-label>
+            <calcite-label layout="inline">
+              <calcite-radio-button value="name"></calcite-radio-button>
+              Origin/Destination Names with Coordinates in Data
+            </calcite-label>
+            <!--
+            <calcite-label layout="inline">
+              <calcite-radio-button value="join"></calcite-radio-button>
+              Origin/Destination IDs - Join to Geography
+            </calcite-label>
+            -->
+          </calcite-radio-button-group>
+        </calcite-block>
+
+        <!-- *** Layers and Fields *** -->
+        <calcite-block heading="Layers and Fields" expanded>
+          <calcite-label>Feature Layer:
+            <calcite-select id="layer-select"></calcite-select>
+          </calcite-label>
+
+          <!-- *** XY + Name mode fields - hidden in join mode *** -->
+          <div id="coord-fields-wrapper">
+            <calcite-label id="field-one-label">Origin X Field:
+              <calcite-select id="field-one"></calcite-select>
+            </calcite-label>
+
+            <calcite-label id="field-two-label">Origin Y Field:
+              <calcite-select id="field-two"></calcite-select>
+            </calcite-label>
+
+            <calcite-label id="field-three-label">Destination X Field:
+              <calcite-select id="field-three"></calcite-select>
+            </calcite-label>
+
+            <calcite-label id="field-four-label">Destination Y Field:
+              <calcite-select id="field-four"></calcite-select>
+            </calcite-label>
+          </div>
+
+          <!-- Join mode fields removed for now -->
+
+          <calcite-label>Value Field:
+            <calcite-select id="value-field"></calcite-select>
+          </calcite-label>
+        </calcite-block>
+
+        <!-- *** Filter *** -->
+        <calcite-block heading="Filter" expanded>
+          <calcite-notice open icon="lightbulb" kind="brand" style="margin-bottom: 12px">
+            <div slot="message">
+              For large datasets, set a minimum value before drawing lines, then use the slider to explore different thresholds.
+            </div>
+          </calcite-notice>
+          <calcite-label>Minimum Value:
+            <calcite-input-number id="min-value-input" placeholder="Enter value (ex. 500)" min="0"></calcite-input-number>
+          </calcite-label>
+          <calcite-label>Maximum Value (optional):
+            <calcite-input-number id="max-value-input" placeholder="Leave blank for no maximum" min="0"></calcite-input-number>
+          </calcite-label>
+          <calcite-label>Maximum Lines to Draw:
+            <calcite-input-number id="max-lines-input" value="2000" min="1"></calcite-input-number>
+          </calcite-label>
+          <calcite-label layout="inline" style="margin-top: 8px;">
+            <calcite-switch id="exclude-self-flows" checked></calcite-switch>
+            Exclude same origin and destination
+          </calcite-label>
+          <calcite-label>Filter Lines:
+            <calcite-slider id="filter-slider" min="0" max="10000" step="100" value="0" label-handles></calcite-slider>
+          </calcite-label>
+        </calcite-block>
+
+        <!-- *** Actions *** -->
+        <calcite-block expanded>
+          <calcite-button id="draw-btn" width="full">Draw Lines</calcite-button>
+          <calcite-button id="clear-btn" width="full" appearance="outline" style="margin-top: 8px">Clear</calcite-button>
+        </calcite-block>
+
+        <!-- *** Popup Builder *** -->
+        <calcite-block id="popup-builder-block" heading="Popup Builder" collapsible>
+          <calcite-label>Popup Title:
+            <calcite-input-text id="popup-title-template"
+              placeholder="e.g. Migration from {Origin_State}"></calcite-input-text>
+          </calcite-label>
+
+          <calcite-notice open icon="information" style="margin-bottom: 8px">
+            <div slot="message">
+              Use <code>{fieldName}</code> in the title or content to insert field values.
+            </div>
+          </calcite-notice>
+
+          <calcite-label>Popup Content:
+            <calcite-input-text id="popup-content-template"
+              placeholder="e.g. {n1} people moved from {Origin_State} to {Destination_State}"></calcite-input-text>
+          </calcite-label>
+
+          <calcite-label style="margin-top: 8px">Or select individual fields:</calcite-label>
+          <calcite-notice open icon="information" style="margin-bottom: 8px">
+            <div slot="message">Check a field to include it. Edit the label to rename it in the popup.</div>
+          </calcite-notice>
+
+          <div id="popup-field-checkboxes"></div>
+
+          <calcite-button id="save-popup-btn" width="full" style="margin-top: 12px">Save Popup</calcite-button>
+          <calcite-chip id="popup-saved-chip" icon="check-circle" style="display:none; margin-top: 8px">
+            Popup configuration saved
+          </calcite-chip>
+        </calcite-block>
+
+      </calcite-panel>
+    </calcite-shell-panel>
+
+    <arcgis-map id="mainMap" item-id="70caa5215b0e49dc8f16520b5db0c350"></arcgis-map>
+  </calcite-shell>
+  <script type="module" src="./src/main.js"></script>
+</body>
+
+</html>

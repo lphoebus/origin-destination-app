@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../node_modules/@esri/calcite-components/dist/chunks/resources8.js"],
+  "sourcesContent": ["/*! All material copyright ESRI, All Rights Reserved, unless otherwise specified.\nSee https://github.com/Esri/calcite-design-system/blob/dev/LICENSE.md for details.\nv3.3.3 */\nconst SLOTS = {\n  menuActions: \"menu-actions\",\n  menuTooltip: \"menu-tooltip\"\n};\nconst ICONS = {\n  menu: \"ellipsis\"\n};\nconst CSS = {\n  container: \"container\"\n};\nexport {\n  CSS as C,\n  ICONS as I,\n  SLOTS as S\n};\n"],
+  "mappings": ";AAGA,IAAM,QAAQ;AAAA,EACZ,aAAa;AAAA,EACb,aAAa;AACf;AACA,IAAM,QAAQ;AAAA,EACZ,MAAM;AACR;AACA,IAAM,MAAM;AAAA,EACV,WAAW;AACb;",
+  "names": []
+}

@@ -1,0 +1,117 @@
+// node_modules/@arcgis/toolkit/dist/dom/index.js
+function getSlotAssignedElements(slot, selector) {
+  const assignedElements = slot.assignedElements({
+    flatten: true
+  });
+  return selector ? assignedElements.filter((element) => element.matches(selector)) : assignedElements;
+}
+var classes = (...classes2) => {
+  const effectiveClasses = [];
+  for (let i = 0; i < classes2.length; i++) {
+    const arg = classes2[i];
+    if (typeof arg === "string") {
+      effectiveClasses.push(arg);
+    } else if (Array.isArray(arg)) {
+      effectiveClasses.push.apply(effectiveClasses, arg);
+    } else if (typeof arg === "object") {
+      for (const prop in arg) {
+        if (arg[prop]) {
+          effectiveClasses.push(prop);
+        }
+      }
+    }
+  }
+  const className = effectiveClasses.join(" ");
+  effectiveClasses.length = 0;
+  return className;
+};
+var inTargetElement = (element, targetElement) => {
+  let currentElement = element;
+  while (currentElement) {
+    if (currentElement === targetElement) {
+      return true;
+    }
+    if (!currentElement.parentNode) {
+      return false;
+    }
+    if (currentElement.parentNode instanceof ShadowRoot) {
+      currentElement = currentElement.parentNode.host;
+    } else {
+      currentElement = currentElement.parentNode;
+    }
+  }
+  return false;
+};
+var observeAncestorsMutation = (element, attributeFilter, callback) => {
+  const subscribe = observe(attributeFilter).subscribe;
+  return subscribe((mutations) => {
+    const matched = mutations.some((mutation) => inTargetElement(element, mutation.target));
+    if (matched) {
+      callback();
+    }
+  });
+};
+var observers = {};
+var observe = (attributeFilter) => {
+  const attributes = attributeFilter.join(",");
+  const previousObserver = observers[attributes];
+  if (previousObserver !== void 0) {
+    return previousObserver;
+  }
+  const subscribers = /* @__PURE__ */ new Set();
+  const mutationObserver = new MutationObserver((mutations) => subscribers.forEach((callback) => callback(mutations)));
+  if (globalThis.document) {
+    mutationObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter,
+      subtree: true
+    });
+  }
+  const observer = {
+    subscribe: (callback) => {
+      subscribers.add(callback);
+      return () => {
+        subscribers.delete(callback);
+        if (subscribers.size === 0) {
+          mutationObserver.disconnect();
+          observers[attributes] = void 0;
+        }
+      };
+    }
+  };
+  observers[attributes] = observer;
+  return observer;
+};
+var getClosestElement = (base, selector) => {
+  var _a, _b;
+  let currentElement = base;
+  while (currentElement) {
+    const element = (_a = currentElement.closest) == null ? void 0 : _a.call(currentElement, selector);
+    if (element) {
+      return element;
+    }
+    const rootElement = (_b = currentElement.getRootNode) == null ? void 0 : _b.call(currentElement);
+    if (rootElement === globalThis.document) {
+      return;
+    }
+    currentElement = rootElement.host;
+  }
+  return;
+};
+function unsafeGetCalciteModeName(el) {
+  const closestElWithMode = getClosestElement(el, `.calcite-mode-dark, .calcite-mode-light, .calcite-mode-auto`);
+  return (closestElWithMode == null ? void 0 : closestElWithMode.classList.contains("calcite-mode-dark")) || (closestElWithMode == null ? void 0 : closestElWithMode.classList.contains("calcite-mode-auto")) && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+var getElementAttribute = (el, attributeName, fallbackValue) => {
+  const closest = getClosestElement(el, `[${attributeName}]`);
+  return (closest == null ? void 0 : closest.getAttribute(attributeName)) ?? fallbackValue;
+};
+
+export {
+  getSlotAssignedElements,
+  classes,
+  observeAncestorsMutation,
+  unsafeGetCalciteModeName,
+  getElementAttribute
+};
+//# sourceMappingURL=chunk-XFVNPLUN.js.map

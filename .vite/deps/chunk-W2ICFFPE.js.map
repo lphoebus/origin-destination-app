@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../node_modules/@arcgis/core/applications/Components/stringUtils.js"],
+  "sourcesContent": ["/*\nAll material copyright ESRI, All Rights Reserved, unless otherwise specified.\nSee https://js.arcgis.com/4.34/esri/copyright.txt for details.\n*/\nimport{escapeRegExpString as r,replace as t,stripHTML as e,templateHasKey as n}from\"../../core/string.js\";function s(t,e){return r(t,e)}function a(r,e){return t(r,e)}function i(r){return e(r)}function o(r,t){return n(r,t)}export{s as escapeRegExpString,a as replace,i as stripHTML,o as templateHasKey};\n"],
+  "mappings": ";;;;;;;AAIwI,SAAS,EAAEA,IAAE,GAAE;AAAC,SAAO,EAAEA,IAAE,CAAC;AAAC;AAAC,SAASC,GAAED,IAAE;AAAC,SAAO,EAAEA,EAAC;AAAC;AAAC,SAASE,GAAEF,IAAE,GAAE;AAAC,SAAO,EAAEA,IAAE,CAAC;AAAC;",
+  "names": ["r", "i", "o"]
+}

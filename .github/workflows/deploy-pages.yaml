@@ -1,0 +1,85 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build config_test
+        working-directory: versions/config_test
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build flow_lines_test
+        working-directory: versions/flow_lines_test
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble Pages site
+        run: |
+          mkdir -p pages-site/config_test
+          mkdir -p pages-site/flow_lines_test
+          cp -R versions/config_test/dist/* pages-site/config_test/
+          cp -R versions/flow_lines_test/dist/* pages-site/flow_lines_test/
+
+      - name: Add version index page
+        run: |
+          cat > pages-site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Origin-Destination App Versions</title>
+            </head>
+            <body>
+              <h1>Origin-Destination App Versions</h1>
+              <ul>
+                <li><a href="./config_test/">Config Test</a></li>
+                <li><a href="./flow_lines_test/">Flow Lines Test</a></li>
+              </ul>
+            </body>
+          </html>
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

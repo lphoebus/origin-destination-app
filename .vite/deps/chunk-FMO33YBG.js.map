@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../node_modules/@esri/calcite-components/dist/chunks/resources2.js"],
+  "sourcesContent": ["/*! All material copyright ESRI, All Rights Reserved, unless otherwise specified.\nSee https://github.com/Esri/calcite-design-system/blob/dev/LICENSE.md for details.\nv3.3.3 */\nconst CSS = {\n  menu: \"menu\",\n  defaultTrigger: \"default-trigger\"\n};\nconst idPrefix = \"calcite-action-menu\";\nconst IDS = {\n  button: (id) => `${idPrefix}-${id}-menu-button`,\n  menu: (id) => `${idPrefix}-${id}-menu`,\n  action: (id, actionId) => `${idPrefix}-${id}-action-${actionId}`\n};\nconst SLOTS = {\n  tooltip: \"tooltip\",\n  trigger: \"trigger\"\n};\nconst ICONS = {\n  menu: \"ellipsis\"\n};\nexport {\n  CSS as C,\n  IDS as I,\n  SLOTS as S,\n  ICONS as a\n};\n"],
+  "mappings": ";AAGA,IAAM,MAAM;AAAA,EACV,MAAM;AAAA,EACN,gBAAgB;AAClB;AACA,IAAM,WAAW;AACjB,IAAM,MAAM;AAAA,EACV,QAAQ,CAAC,OAAO,GAAG,QAAQ,IAAI,EAAE;AAAA,EACjC,MAAM,CAAC,OAAO,GAAG,QAAQ,IAAI,EAAE;AAAA,EAC/B,QAAQ,CAAC,IAAI,aAAa,GAAG,QAAQ,IAAI,EAAE,WAAW,QAAQ;AAChE;AACA,IAAM,QAAQ;AAAA,EACZ,SAAS;AAAA,EACT,SAAS;AACX;AACA,IAAM,QAAQ;AAAA,EACZ,MAAM;AACR;",
+  "names": []
+}
